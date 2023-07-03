@@ -21,6 +21,42 @@ ReadPackageOnce( "FunctorCategories", "gap/CompilerLogic.gi" );
 ReadPackageOnce( "ZXCalculusForCAP", "gap/CompilerLogic.gi" );
 #! true
 
+##
+CapJitAddLogicTemplate(
+    rec(
+        variable_names := [ "cat", "functor_source", "functor_range", "object_datum", "cat2", "source", "range", "attr", "morphism_datum" ],
+        src_template := "CreateCapCategoryObjectWithAttributes( cat, Source, functor_source, Range, functor_range, ValuesOfPreSheaf, object_datum )( CreateCapCategoryMorphismWithAttributes( cat2, source, range, attr, morphism_datum ) )",
+        dst_template := "ApplyObjectInPreSheafCategoryOfFpEnrichedCategoryToMorphism( cat, CreateCapCategoryObjectWithAttributes( cat, Source, source, Range, range, ValuesOfPreSheaf, object_datum ), CreateCapCategoryMorphismWithAttributes( cat2, source, range, attr, morphism_datum ) )",
+    )
+);
+
+##
+CapJitAddLogicTemplate(
+    rec(
+        variable_names := [ "cat", "source", "range", "morphism_datum", "obj" ],
+        src_template := "CreateCapCategoryMorphismWithAttributes( cat, source, range, ValuesOnAllObjects, morphism_datum )( obj )",
+        dst_template := "ApplyMorphismInPreSheafCategoryOfFpEnrichedCategoryToObject( cat, CreateCapCategoryMorphismWithAttributes( cat, source, range, ValuesOnAllObjects, morphism_datum ), obj )",
+    )
+);
+
+##
+CapJitAddLogicTemplate(
+    rec(
+        variable_names := [ "entry1", "entry2" ],
+        src_template := "SafePosition( [ entry1, entry2 ], entry1 )",
+        dst_template := "1",
+    )
+);
+
+##
+CapJitAddLogicTemplate(
+    rec(
+        variable_names := [ "entry1", "entry2" ],
+        src_template := "SafePosition( [ entry1, entry2 ], entry2 )",
+        dst_template := "2",
+    )
+);
+
 category_constructor := { } -> CategoryOfZXDiagrams( );;
 given_arguments := [ ];;
 compiled_category_name := "CategoryOfZXDiagrams_precompiled";;
